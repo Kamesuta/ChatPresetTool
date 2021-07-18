@@ -3,13 +3,20 @@
   <Profiles />
   <Settings>
     <Setting Name="TextInput" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Minecraftチャット便利ツール(チャット便)の使い方
+      <Value Profile="(Default)">Minecraftチャット便利ツールを使ってみよう
 
-①ここの説明欄のテキストを発言したいセリフを書きます
-②Minecraftのゲーム内でF12を押します (チャット画面は自動的に開きます)
-③Enterを押して送信します
+①Minecraftを開き、GUIを開いてない状態でF12を押します
+②Enterを押して送信します
 
-※チャットを入力すると行が消えていきますが、[↓]ボタンを押せば復元できます</Value>
+
+※[↓]ボタンを押せば復元できます
+※ここを右クリックすると便利なオプション機能があります</Value>
+    </Setting>
+    <Setting Name="AutoSend" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CommentOut" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

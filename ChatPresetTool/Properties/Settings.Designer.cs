@@ -25,15 +25,38 @@ namespace ChatPresetTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Minecraftチャット便利ツール(チャット便)の使い方\r\n\r\n①ここの説明欄のテキストを発言したいセリフを書きます\r\n②Minecraftのゲーム内でF12を" +
-            "押します (チャット画面は自動的に開きます)\r\n③Enterを押して送信します\r\n\r\n※チャットを入力すると行が消えていきますが、[↓]ボタンを押せば復元できま" +
-            "す")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Minecraftチャット便利ツールを使ってみよう\r\n\r\n①Minecraftを開き、GUIを開いてない状態でF12を押します\r\n②Enterを押して送信します\r" +
+            "\n\r\n\r\n※[↓]ボタンを押せば復元できます\r\n※ここを右クリックすると便利なオプション機能があります")]
         public string TextInput {
             get {
                 return ((string)(this["TextInput"]));
             }
             set {
                 this["TextInput"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoSend {
+            get {
+                return ((bool)(this["AutoSend"]));
+            }
+            set {
+                this["AutoSend"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CommentOut {
+            get {
+                return ((bool)(this["CommentOut"]));
+            }
+            set {
+                this["CommentOut"] = value;
             }
         }
     }

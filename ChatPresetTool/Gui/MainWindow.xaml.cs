@@ -22,7 +22,11 @@ namespace ChatPresetTool
         public MainWindow()
         {
             InitializeComponent();
+            
             TextBox.Text = Properties.Settings.Default.TextInput;
+            AutoSend.IsChecked = Properties.Settings.Default.AutoSend;
+            CommentOut.IsChecked = Properties.Settings.Default.CommentOut;
+
             Title += $" v{Assembly.GetExecutingAssembly().GetName().Version}";
 
             GlobalHook.EnableHook();
@@ -34,11 +38,14 @@ namespace ChatPresetTool
             GlobalHook.DisableHook();
 
             Properties.Settings.Default.TextInput = TextBox.Text;
+            Properties.Settings.Default.AutoSend = AutoSend.IsChecked;
+            Properties.Settings.Default.CommentOut = CommentOut.IsChecked;
             Properties.Settings.Default.Save();
         }
 
         private enum Keys : byte
         {
+            VK_RETURN = 0x0D,
             VK_T = 0x54,
             VK_V = 0x56,
             VK_F12 = 0x7B,
@@ -74,15 +81,20 @@ namespace ChatPresetTool
                         break;
                     }
 
-                    split = new[] { textBox.Substring(0, pos), textBox = textBox.Substring(pos + Environment.NewLine.Length) };
+                    var previous = textBox.Substring(0, pos);
+                    textBox = textBox.Substring(pos + Environment.NewLine.Length);
+                    split = new[] { previous, textBox };
+
+                    if (CommentOut.IsChecked && previous.StartsWith("#"))
+                    {
+                        continue;
+                    }
 
                     if (pos != 0)
                     {
                         break;
                     }
                 }
-
-                TextBox.Text = textBox;
             }
 
 
@@ -109,6 +121,7 @@ namespace ChatPresetTool
                 {
                     // Tを押す
                     KeySimulator.PressKey((byte) Keys.VK_T);
+                    await Task.Delay(5);
                     KeySimulator.ReleaseKey((byte) Keys.VK_T);
 
                     await Task.Delay(10);
@@ -126,6 +139,13 @@ namespace ChatPresetTool
                     await Task.Delay(10);
                     KeySimulator.ReleaseKey((byte) Keys.VK_LCONTROL);
                     KeySimulator.ReleaseKey((byte) Keys.VK_V);
+
+                    if (AutoSend.IsChecked)
+                    {
+                        KeySimulator.PressKey((byte) Keys.VK_RETURN);
+                        await Task.Delay(5);
+                        KeySimulator.ReleaseKey((byte) Keys.VK_RETURN);
+                    }
                 }
                 catch (COMException)
                 {
@@ -149,10 +169,16 @@ namespace ChatPresetTool
                 string text = _stack.Pop();
                 TextBox.Text = $"{text}{Environment.NewLine}{TextBox.Text}";
 
-                string prev = _stack.Count > 0 ? _stack.Pop() : "";
+                string prev = _stack.Count > 0 ? _stack.Peek() : "";
 
                 Previous.Text = prev;
             }
+        }
+
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+            TextBox.Text = Properties.Settings.Default.TextInput;
         }
     }
 }
