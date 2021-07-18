@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+using System.Resources;
 using System.Reflection;
 using System.Windows;
 
@@ -10,8 +12,11 @@ using System.Windows;
                                               // app, or any theme specific resource dictionaries)
 )]
 [assembly: AssemblyTitle("ChatPresetTool")]
-[assembly: AssemblyDescription("ChatPresetTool")]
+[assembly: AssemblyDescription("チャットを便利にします。セリフを自動入力することができます。")]
 [assembly: AssemblyCompany("Kamesuta")]
-[assembly: AssemblyProduct("ChatPresetTool")]
+[assembly: AssemblyProduct("チャット便利ツール")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyCopyright("Copyright (c) 2021 Kamesuta")]
+[assembly: NeutralResourcesLanguage("ja-JP")]
+[assembly: ComVisible(false)]

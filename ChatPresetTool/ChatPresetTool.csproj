@@ -5,6 +5,20 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <Authors>Kamesuta</Authors>
+    <Company>Kamesuta</Company>
+    <Product>チャット便利ツール</Product>
+    <Description>チャットを便利にします。
+セリフを自動入力することができます。</Description>
+    <Copyright>Copyright (c) 2021 Kamesuta</Copyright>
+    <PackageIcon>favicon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/TeamKun/ChatPresetTool</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Minecraft</PackageTags>
+    <NeutralLanguage>ja-JP</NeutralLanguage>
+    <PackageProjectUrl>https://github.com/TeamKun/ChatPresetTool</PackageProjectUrl>
+    <PackageLicenseFile></PackageLicenseFile>
+    <PackageLicenseExpression>https://github.com/TeamKun/ChatPresetTool/blob/master/LICENSE</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +33,10 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="..\ChatPresetToolDotNetFramework\favicon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 
