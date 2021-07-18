@@ -7,7 +7,9 @@ Minecraftでセリフを自動入力することができます。
 
 ![画面](https://cdn.discordapp.com/attachments/611227726971404298/866400744747565066/unknown.png)
 
+## ダウンロード
 
+[ダウンロードはこちら](https://github.com/TeamKun/ChatPresetTool/releases)
 
 ## 使い方
 
