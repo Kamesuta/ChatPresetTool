@@ -1,5 +1,4 @@
 [![License MIT](https://img.shields.io/badge/License-MIT-blue)](https://github.com/TeamKun/ChatPresetTool/blob/master/LICENSE)
-
 [![Latest Release](https://img.shields.io/github/release/TeamKun/ChatPresetTool.svg?label=Latest%20Release&style=flat)](https://github.com/TeamKun/ChatPresetTool/releases)
 
 # Minecraftチャット便利ツール
