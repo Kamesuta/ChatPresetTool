@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ChatPresetTool.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TextInput" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Minecraftチャット便利ツール(チャット便)の使い方
+
+①ここの説明欄のテキストを発言したいセリフを書きます
+②Minecraftのゲーム内でF12を押します (チャット画面は自動的に開きます)
+③Enterを押して送信します
+
+※チャットを入力すると行が消えていきますが、[↓]ボタンを押せば復元できます</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -81,8 +81,6 @@ namespace ChatPresetTool
                         break;
                     }
                 }
-
-                TextBox.Text = textBox;
             }
 
 
@@ -149,7 +147,7 @@ namespace ChatPresetTool
                 string text = _stack.Pop();
                 TextBox.Text = $"{text}{Environment.NewLine}{TextBox.Text}";
 
-                string prev = _stack.Count > 0 ? _stack.Pop() : "";
+                string prev = _stack.Count > 0 ? _stack.Peek() : "";
 
                 Previous.Text = prev;
             }
