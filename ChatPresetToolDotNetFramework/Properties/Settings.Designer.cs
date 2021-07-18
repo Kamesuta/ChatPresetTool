@@ -26,7 +26,7 @@ namespace ChatPresetTool.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Minecraftチャット便利ツールを使ってみよう\r\n\r\n①Minecraftを開き、GUIを開いてない状態でF12を押します\r\n②Enterを押して送信します\r" +
-            "\n\r\n\r\n※[↓]ボタンを押せば復元できます\r\n※ここを右クリックすると便利なオプション機能があります")]
+            "\n\r\n※[↓]ボタンを押すと過去に送信した発言を復元できます\r\n※ここを右クリックすると便利なオプション機能があります")]
         public string TextInput {
             get {
                 return ((string)(this["TextInput"]));

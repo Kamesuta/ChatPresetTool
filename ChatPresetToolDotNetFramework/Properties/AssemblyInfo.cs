@@ -14,7 +14,7 @@ using System.Windows;
 [assembly: AssemblyTitle("ChatPresetTool")]
 [assembly: AssemblyDescription("チャットを便利にします。セリフを自動入力することができます。")]
 [assembly: AssemblyCompany("Kamesuta")]
-[assembly: AssemblyProduct("チャット便利ツール")]
+[assembly: AssemblyProduct("Minecraftチャット便利ツール")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: AssemblyCopyright("Copyright (c) 2021 Kamesuta")]
