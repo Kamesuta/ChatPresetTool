@@ -85,7 +85,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Key\ActiveWindow.cs" />
-    <Compile Include="Key\ClipboardBackup.cs" />
     <Compile Include="Key\GlobalHook.cs" />
     <Compile Include="Key\KeySimulator.cs" />
     <Compile Include="Key\NativeMethods.cs" />

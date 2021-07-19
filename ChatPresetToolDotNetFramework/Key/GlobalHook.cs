@@ -1,52 +1,68 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
 
 namespace ChatPresetTool
 {
-    public static class GlobalHook
+    public class GlobalHook
     {
-        private const int WH_KEYBOARD_LL = 13;
-        private const int WM_KEYDOWN = 0x0100;
+        public delegate void KeyEvent();
 
-        private static IntPtr _hookId = IntPtr.Zero;
+        public event KeyEvent KeyEvents;
 
-        public delegate void KeyEvent(int vkCode);
+        public Window Window { get; }
+        public uint HookKey { get; }
+        public int HookId { get; }
 
-        public static event KeyEvent KeyEvents;
+        public uint HookModifier { get; set; }
 
-        public static void EnableHook()
+        private const int WM_HOTKEY = 0x0312;
+        private IntPtr _windowHandle;
+        private HwndSource _source;
+
+        public GlobalHook(Window window, uint hookKey, int hookId)
         {
-            using (var currentProcess = Process.GetCurrentProcess())
-            {
-                using (var currentModule = currentProcess.MainModule)
-                {
-                    var moduleHandle = NativeMethods.GetModuleHandle(currentModule?.ModuleName);
-                    _hookId = NativeMethods.SetWindowsHookEx(WH_KEYBOARD_LL, _hookCallbackProc, moduleHandle, 0);
-                }
-            }
+            Window = window;
+            HookKey = hookKey;
+            HookId = hookId;
         }
 
-        public static void DisableHook()
+        public void EnableHook()
         {
-            NativeMethods.UnhookWindowsHookEx(_hookId);
-            _hookId = IntPtr.Zero;
+            _windowHandle = new WindowInteropHelper(Window).Handle;
+            _source = HwndSource.FromHwnd(_windowHandle);
+            _source.AddHook(HWndHook);
+
+            int result = NativeMethods.RegisterHotKey(_windowHandle, HookId, HookModifier, HookKey);
         }
 
-        // これを保持しておかないとdelegateがガベコレされて
-        // System.ExecutionEngineExceptionという意味の分からない例外を吐いて落ちるようになる。
-        // https://qiita.com/mitsu_at3/items/94807ee0b3bf34ffb6b2
-        private static readonly NativeMethods.LowLevelKeyboardProc _hookCallbackProc = HookCallback;
-
-        private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+        private IntPtr HWndHook(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if (nCode >= 0 && wParam == (IntPtr) WM_KEYDOWN)
+            switch (msg)
             {
-                int vkCode = Marshal.ReadInt32(lParam);
-                KeyEvents?.Invoke(vkCode);
+                case WM_HOTKEY:
+                    if (wParam.ToInt32() == HookId)
+                    {
+                        int vkCode = (((int)lParam >> 16) & 0xFFFF);
+                        if (vkCode == HookKey)
+                        {
+                            KeyEvents?.Invoke();
+                        }
+                        handled = true;
+                    }
+                    break;
             }
+            return IntPtr.Zero;
+        }
 
-            return NativeMethods.CallNextHookEx(_hookId, nCode, wParam, lParam);
+        public void DisableHook()
+        {
+            _source.RemoveHook(HWndHook);
+            NativeMethods.UnregisterHotKey(_windowHandle, HookId);
+            _source = null;
+            _windowHandle = IntPtr.Zero;
         }
     }
 }

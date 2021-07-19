@@ -18,24 +18,31 @@ namespace ChatPresetTool
 
         private readonly Stack<string> _stack = new Stack<string>();
         private readonly Stopwatch _timer = Stopwatch.StartNew();
+        private GlobalHook _hook;
 
+        private const int HOTKEY_ID1 = 0x0001;
         public MainWindow()
         {
             InitializeComponent();
-            
+
             TextBox.Text = Properties.Settings.Default.TextInput;
             AutoSend.IsChecked = Properties.Settings.Default.AutoSend;
             CommentOut.IsChecked = Properties.Settings.Default.CommentOut;
 
             Title += $" v{Assembly.GetExecutingAssembly().GetName().Version}";
+        }
 
-            GlobalHook.EnableHook();
-            GlobalHook.KeyEvents += OnKeyPress;
+        private void Window_SourceInitialized(object sender, EventArgs e)
+        {
+            _hook = new GlobalHook(this, (uint) Keys.VK_F12, HOTKEY_ID1);
+            _hook.EnableHook();
+            _hook.KeyEvents += OnKeyPress;
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            GlobalHook.DisableHook();
+            _hook.DisableHook();
+            _hook = null;
 
             Properties.Settings.Default.TextInput = TextBox.Text;
             Properties.Settings.Default.AutoSend = AutoSend.IsChecked;
@@ -52,14 +59,8 @@ namespace ChatPresetTool
             VK_LCONTROL = 0xA2,
         }
 
-        private async void OnKeyPress(int vkCode)
+        private async void OnKeyPress()
         {
-            // Enterが押されたら
-            if (vkCode != (byte) Keys.VK_F12)
-            {
-                return;
-            }
-
             // 短い間隔を弾く
             if (_timer.Elapsed.Milliseconds < 30)
             {
@@ -77,13 +78,13 @@ namespace ChatPresetTool
                     var pos = textBox.IndexOf(Environment.NewLine, StringComparison.Ordinal);
                     if (pos == -1)
                     {
-                        split = new[] { textBox };
+                        split = new[] {textBox};
                         break;
                     }
 
                     var previous = textBox.Substring(0, pos);
                     textBox = textBox.Substring(pos + Environment.NewLine.Length);
-                    split = new[] { previous, textBox };
+                    split = new[] {previous, textBox};
 
                     if (CommentOut.IsChecked && previous.StartsWith("#"))
                     {
