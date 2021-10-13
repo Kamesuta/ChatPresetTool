@@ -91,6 +91,7 @@
     <Compile Include="Key\NativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Key\SystemMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -122,6 +123,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpeechToTextDotNetFramework\SpeechToTextDotNetFramework.csproj">
+      <Project>{7ec76ba2-7c76-4fb2-9f2e-58f92bc8591e}</Project>
+      <Name>SpeechToTextDotNetFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
